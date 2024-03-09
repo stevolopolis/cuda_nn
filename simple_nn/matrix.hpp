@@ -7,7 +7,7 @@ private:
     bool device_allocated;
     bool host_allocated;
 
-    void allocateCudaMem();
+    void allocateDeviceMem();
     void allocateHostMem();
 
 public:
