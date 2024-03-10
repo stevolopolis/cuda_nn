@@ -13,10 +13,11 @@ __global__ void sigmoidActivationForward(float *Z, float *A, int Z_x_dim, int Z_
 }
 
 
-__global__ void sigmoidActivationBackward(float *dA, float *A, float *dZ, int Z_x_dim, int Z_y_dim) {
+__global__ void sigmoidActivationBackward(float *dA, float *dZ, float *Z, int Z_x_dim, int Z_y_dim) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i < Z_x_dim * Z_y_dim) {
-        dZ[i] = dA[i] * A[i] * (1 - A[i]);
+        float sigmoidZ = sigmoid(Z[i]);
+        dZ[i] = dA[i] * sigmoidZ * (1 - sigmoidZ);
     }
 }
 
@@ -41,8 +42,8 @@ Matrix& SigmoidActivation::backward(Matrix& dA, float lr) {
     dim3 num_of_blocks((Z.shape.x * Z.shape.y + block_size.x - 1) / block_size.x);
 
     sigmoidActivationBackward<<<num_of_blocks, block_size>>>(dA.data_device.get(),
-                                                             A.data_device.get(),
                                                              dZ.data_device.get(),
+                                                             Z.data_device.get(),
                                                              Z.shape.x,
                                                              Z.shape.y);
 
