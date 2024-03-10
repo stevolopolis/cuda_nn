@@ -59,3 +59,8 @@ void Matrix::copyDeviceToHost() {
         cudaMemcpy(data_host.get(), data_device.get(), shape.x * shape.y * sizeof(float), cudaMemcpyDeviceToHost);
     }
 }
+
+
+float& Matrix::operator[](const int index) {
+    return data_host.get()[index];
+}
