@@ -1,4 +1,6 @@
-#include "nn_layer.hpp"
+#pragma once
+ 
+#include "../nn_layer.hpp"
 
 class LinearLayer : public NNLayer {
 private:

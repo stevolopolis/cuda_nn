@@ -1,3 +1,5 @@
+#pragma once
+
 #include "shape.hpp"
 
 #include <memory>
@@ -24,4 +26,6 @@ public:
 
     void copyHostToDevice();
     void copyDeviceToHost();   
+
+    float& operator[](const int index);
 };

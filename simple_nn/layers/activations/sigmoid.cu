@@ -22,6 +22,14 @@ __global__ void sigmoidActivationBackward(float *dA, float *dZ, float *Z, int Z_
 }
 
 
+SigmoidActivation::SigmoidActivation(std::string name) :
+    name(name)
+{ }
+
+
+SigmoidActivation::~SigmoidActivation() {}
+
+
 Matrix& SigmoidActivation::forward(Matrix& Z) {
     this->Z = Z;
     A.allocateMemIfNotAllocated(Z.shape);

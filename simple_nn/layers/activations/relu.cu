@@ -13,12 +13,20 @@ __global__ void reluActivationForward(float *Z, float *A, int Z_x_dim, int Z_y_d
 }
 
 
-__global__ void reluActivationBackward(float *dA, float *dZ, float Z, int Z_x_dim, int Z_y_dim) {
+__global__ void reluActivationBackward(float *dA, float *dZ, float *Z, int Z_x_dim, int Z_y_dim) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i < Z_x_dim * Z_y_dim) {
         dZ[i] = dA[i] * (Z[i] > 0 ? 1 : 0);
     }
 }
+
+
+ReluActivation::ReluActivation(std::string name) :
+    name(name)
+{ }
+
+
+ReluActivation::~ReluActivation() {}
 
 
 Matrix& ReluActivation::forward(Matrix& Z) {

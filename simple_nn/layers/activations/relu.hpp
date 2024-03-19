@@ -1,7 +1,10 @@
-#include "nn_layer.hpp"
+#pragma once
+
+#include "../nn_layer.hpp"
 
 class ReluActivation : public NNLayer {
 private: 
+    std::string name;
     Matrix A, Z, dZ;
 public:
     ReluActivation(std::string name);
